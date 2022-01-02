@@ -1,5 +1,6 @@
 package com.example.batchdemo;
 
+import com.example.batchdemo.dto.Person;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 

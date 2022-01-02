@@ -1,4 +1,4 @@
-package com.example.batchdemo;
+package com.example.batchdemo.dto;
 
 import lombok.*;
 

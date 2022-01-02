@@ -1,7 +1,7 @@
 logging:
   level:
-    root: debug
-    #org.springframework.jdbc: debug
+    root: info
+    org.springframework.jdbc: debug
 ##Spring Datasource
 spring.datasource:
   username: ENC(RhYzlPa2gCYnTa8NtzKpONClfUllOKRs)
@@ -11,8 +11,15 @@ spring.datasource:
   #initialization-mode: always
   initialization-mode: never
   platform: mysql
-spring:
-  batch:
+
+spring.batch:
     jdbc:
       #initialize-schema: always
       initialize-schema: never
+mybatis:
+  type-aliases-package: com.example.batchdemo.dto
+  mapper-locations: /mapper/**/*.xml
+  executor-type: BATCH
+  configuration:
+    map-underscore-to-camel-case: true
+    vfsImpl: org.mybatis.spring.boot.autoconfigure.SpringBootVFS
