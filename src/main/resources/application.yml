@@ -1,3 +1,18 @@
 logging:
   level:
-    org.springframework.jdbc: debug
+    root: debug
+    #org.springframework.jdbc: debug
+##Spring Datasource
+spring.datasource:
+  username: ENC(RhYzlPa2gCYnTa8NtzKpONClfUllOKRs)
+  password: ENC(U/XKxmbjeq04wv4nn7iEqw==)
+  url: jdbc:mysql://localhost:3306/batch_db?serverTimezone=UTC&characterEncoding=UTF-8
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  #initialization-mode: always
+  initialization-mode: never
+  platform: mysql
+spring:
+  batch:
+    jdbc:
+      #initialize-schema: always
+      initialize-schema: never
