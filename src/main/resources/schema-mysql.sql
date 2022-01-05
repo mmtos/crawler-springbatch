@@ -5,3 +5,9 @@ CREATE TABLE people  (
     first_name VARCHAR(20),
     last_name VARCHAR(20)
 );
+DROP TABLE if exists hospital;
+
+CREATE TABLE hospital  (
+    rnum INT PRIMARY KEY,
+    duty_name VARCHAR(300)
+);

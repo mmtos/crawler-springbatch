@@ -1,4 +1,4 @@
-package com.example.batchdemo.config;
+package com.example.batchdemo.config.batch;
 
 import com.example.batchdemo.JobCompletionNotificationListener;
 import com.example.batchdemo.dto.Person;
@@ -24,7 +24,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableBatchProcessing
-public class BatchConfiguration {
+public class PersonBatchConfig {
     @Autowired
     public JobBuilderFactory jobBuilderFactory;
 

@@ -7,6 +7,8 @@ https://spring.io/guides/gs/batch-processing/
     - 참고 1 : https://devlog-wjdrbs96.tistory.com/200
     - 참고 2 : https://jsonobject.tistory.com/225
   - [ ] REST API 데이터 저장 예시 작성 
+  - [ ] 실행가능 JAR로 실행해보기
+
 ##문제 발생 및 해결
 * mysql로 DB변경시 테이블이 자동생성 되지않는 현상 발생 
   - 기본적으로는 embedded db(H2 HSQL...)를 사용하지 않으면 schema sql 문을 실행시키지 않음. 
