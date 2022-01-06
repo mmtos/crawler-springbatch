@@ -6,4 +6,8 @@
     <select id="findAll" resultType="Person">
         SELECT * FROM PEOPLE
     </select>
+    <insert id="insertPerson" parameterType="Person">
+        INSERT INTO people (person_id, first_name, last_name) VALUES (people_seq.NEXTVAL,#{firstName}, #{lastName})
+    </insert>
+
 </mapper>
