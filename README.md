@@ -6,9 +6,27 @@ https://spring.io/guides/gs/batch-processing/
   - [X] Mybatis 도입 
     - 참고 1 : https://devlog-wjdrbs96.tistory.com/200
     - 참고 2 : https://jsonobject.tistory.com/225
-  - [ ] Mybatis로 Batch Writer 작성하기
+  - [X] MybatisBatchWriter 사용하기
+  - [X] Step간 데이터 공유
+  - [ ]
   - [ ] REST API 데이터 저장 예시 작성 
   - [ ] 실행가능 JAR로 실행해보기
+
+##테스트 환경
+H2를 이용한 테스트 환경 : https://taes-k.github.io/2021/04/05/spring-test-isolation-datasource/
+테스트 실행시 profile을 test로 지정하는 방법 : 클래스 Annotation @ActiveProfiles("test")
+RunWith 어디로? : https://www.whiteship.me/springboot-no-more-runwith/
+spring batch 통합 테스트 https://jojoldu.tistory.com/455
+spring batch 단위 테스트 https://jojoldu.tistory.com/456?category=902551
+spring batch 테스트 : https://moonsiri.tistory.com/48?category=932632
+
+##Spring Batch 사용법
+Tasklet 작성 : https://juneyr.dev/2019-07-24/spring-batch-tasklet
+원하는 batch만 동작시키기 : https://velog.io/@lxxjn0/Spring-Batch-Guide-04.-Spring-Batch-Job-Flow
+Step간 데이터 공유 : 
+  https://docs.spring.io/spring-batch/docs/current/reference/html/common-patterns.html#passingDataToFutureSteps
+  https://stackoverflow.com/questions/2292667/how-can-we-share-data-between-the-different-steps-of-a-job-in-spring-batch
+job내부 step 흐름제어 : https://velog.io/@lxxjn0/Spring-Batch-Guide-04.-Spring-Batch-Job-Flow
 
 ##문제 발생 및 해결
 * mysql로 DB변경시 테이블이 자동생성 되지않는 현상 발생 
@@ -72,17 +90,10 @@ https://spring.io/guides/gs/batch-processing/
   mybatis.configuration.vfsImpl=org.mybatis.spring.boot.autoconfigure.SpringBootVFS
   ```
 
-### Oracle
+#### Oracle
 ojdbc10은 driverClassName이 ojdbc6와 다름
 
-### 테스트 환경
-H2를 이용한 테스트 환경 : https://taes-k.github.io/2021/04/05/spring-test-isolation-datasource/
-테스트 실행시 profile을 test로 지정하는 방법 : 클래스 Annotation @ActiveProfiles("test")
-RunWith 어디로? : https://www.whiteship.me/springboot-no-more-runwith/
-spring batch 통합 테스트 https://jojoldu.tistory.com/455
-spring batch 단위 테스트 https://jojoldu.tistory.com/456?category=902551
-spring batch 테스트 : https://moonsiri.tistory.com/48?category=932632
-
-#### Batch + Quartz 
+#### Batch, Quartz 연동
 https://hyejikim.tistory.com/67
 https://examples.javacodegeeks.com/enterprise-java/spring/batch/quartz-spring-batch-example/
+
