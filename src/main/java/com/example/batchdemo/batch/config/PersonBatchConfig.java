@@ -1,10 +1,9 @@
-package com.example.batchdemo.config.batch;
+package com.example.batchdemo.batch.config;
 
-import com.example.batchdemo.JobCompletionNotificationListener;
+import com.example.batchdemo.batch.listener.JobCompletionNotificationListener;
 import com.example.batchdemo.dto.Person;
-import com.example.batchdemo.PersonItemProcessor;
+import com.example.batchdemo.batch.processor.PersonItemProcessor;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.batch.MyBatisBatchItemWriter;
 import org.mybatis.spring.batch.builder.MyBatisBatchItemWriterBuilder;
 import org.springframework.batch.core.Job;

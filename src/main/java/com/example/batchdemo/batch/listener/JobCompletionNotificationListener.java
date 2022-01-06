@@ -1,4 +1,4 @@
-package com.example.batchdemo;
+package com.example.batchdemo.batch.listener;
 
 import com.example.batchdemo.dto.Person;
 import lombok.AllArgsConstructor;
@@ -17,8 +17,6 @@ import java.util.Map;
 @Slf4j
 @AllArgsConstructor
 public class JobCompletionNotificationListener extends JobExecutionListenerSupport {
-    private final JdbcTemplate jdbcTemplate;
-
     @Override
     public void beforeJob(JobExecution jobExecution){
 
@@ -27,9 +25,7 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
     public void afterJob(JobExecution jobExecution){
 
         if(jobExecution.getStatus() == BatchStatus.COMPLETED){
-            log.info("!!! JOB FINISHED! verify the results");
-            jdbcTemplate.query("SELECT first_name, last_name FROM people",(rs, rowNum) -> new Person(rs.getString(1),rs.getString(2)))
-                    .forEach(person -> log.info("FOUND < " + person + " > in the db" ));
+            log.info(jobExecution.getJobInstance().getJobName()+" : JOB FINISHED!");
         }
     }
 }

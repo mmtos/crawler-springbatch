@@ -1,4 +1,4 @@
-package com.example.batchdemo;
+package com.example.batchdemo.batch.processor;
 
 import com.example.batchdemo.dto.Person;
 import lombok.extern.slf4j.Slf4j;

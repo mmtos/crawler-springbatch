@@ -1,6 +1,7 @@
 package com.example.batchdemo;
 
-import com.example.batchdemo.config.batch.PersonBatchConfig;
+import com.example.batchdemo.batch.config.PersonBatchConfig;
+import com.example.batchdemo.batch.listener.JobCompletionNotificationListener;
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;
