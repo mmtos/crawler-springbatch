@@ -1,7 +1,7 @@
 logging:
   level:
     root: info
-    org.springframework.jdbc: debug
+    #org.springframework.jdbc: debug
 ##Spring Datasource
 spring.datasource:
   username: ENC(4PD683gP+MUwg+gkEJLPXQ==)
@@ -24,6 +24,11 @@ mybatis:
     map-underscore-to-camel-case: true
     vfsImpl: org.mybatis.spring.boot.autoconfigure.SpringBootVFS
 
+openapi:
+  data.go.kr:
+    key: ENC(rRhgbPILwZP3bxnkYP5xegHH3XmJCxuEtk3aqD/N1a6I9BhQhysejl5W2lE8PE+EPAbbuRwWHY/zr6bst8gvjnCVCswEIgRul6/B3ZMq88MAR40F08FRCveSWRSXJTpyeGnEh7h7Vl0=)
+    hospital:
+      url: http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire
 
 ---
 ####################################################################################################
