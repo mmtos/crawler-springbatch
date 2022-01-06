@@ -6,6 +6,7 @@ https://spring.io/guides/gs/batch-processing/
   - [X] Mybatis 도입 
     - 참고 1 : https://devlog-wjdrbs96.tistory.com/200
     - 참고 2 : https://jsonobject.tistory.com/225
+  - [ ] Mybatis로 Batch Writer 작성하기
   - [ ] REST API 데이터 저장 예시 작성 
   - [ ] 실행가능 JAR로 실행해보기
 
@@ -60,9 +61,9 @@ https://spring.io/guides/gs/batch-processing/
   mybatis.mapper-locations=
   mybatis.type-aliases-package=
   mybatis.executor-type=SIMPLE
-  mybatis.executor-type=REUSE
+  #mybatis.executor-type=REUSE
   # BATCH모드 이해하기 https://bkim.tistory.com/4
-  mybatis.executor-type=BATCH
+  #mybatis.executor-type=BATCH
   
   # mybatis.configuration.* (mybatis.config-location과 같이 사용하지 못함.)
   # https://mybatis.org/mybatis-3/configuration.html#settings
@@ -70,3 +71,18 @@ https://spring.io/guides/gs/batch-processing/
   # 실행가능 JAR로 실행할 경우. https://do-study.tistory.com/78
   mybatis.configuration.vfsImpl=org.mybatis.spring.boot.autoconfigure.SpringBootVFS
   ```
+
+### Oracle
+ojdbc10은 driverClassName이 ojdbc6와 다름
+
+### 테스트 환경
+H2를 이용한 테스트 환경 : https://taes-k.github.io/2021/04/05/spring-test-isolation-datasource/
+테스트 실행시 profile을 test로 지정하는 방법 : 클래스 Annotation @ActiveProfiles("test")
+RunWith 어디로? : https://www.whiteship.me/springboot-no-more-runwith/
+spring batch 통합 테스트 https://jojoldu.tistory.com/455
+spring batch 단위 테스트 https://jojoldu.tistory.com/456?category=902551
+spring batch 테스트 : https://moonsiri.tistory.com/48?category=932632
+
+#### Batch + Quartz 
+https://hyejikim.tistory.com/67
+https://examples.javacodegeeks.com/enterprise-java/spring/batch/quartz-spring-batch-example/
