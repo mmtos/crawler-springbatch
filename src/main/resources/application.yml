@@ -4,13 +4,13 @@ logging:
     org.springframework.jdbc: debug
 ##Spring Datasource
 spring.datasource:
-  username: ENC(RhYzlPa2gCYnTa8NtzKpONClfUllOKRs)
-  password: ENC(U/XKxmbjeq04wv4nn7iEqw==)
-  url: jdbc:mysql://localhost:3306/batch_db?serverTimezone=UTC&characterEncoding=UTF-8
-  driver-class-name: com.mysql.cj.jdbc.Driver
+  username: ENC(4PD683gP+MUwg+gkEJLPXQ==)
+  password: ENC(FhsScCfMiLX7MMpScGciKw==)
+  url: jdbc:oracle:thin:@10.201.5.153:49161:XE
+  driver-class-name: oracle.jdbc.OracleDriver
   #initialization-mode: always
   initialization-mode: never
-  platform: mysql
+  platform: oracle
 
 spring.batch:
     jdbc:
@@ -23,3 +23,28 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
     vfsImpl: org.mybatis.spring.boot.autoconfigure.SpringBootVFS
+
+
+---
+####################################################################################################
+## test 전용 환경
+####################################################################################################
+spring:
+  config:
+    activate:
+      on-profile: test
+  h2:
+    console:
+      enabled: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;MODE=Oracle;
+    username: testdb
+    password: testdb
+    initialization-mode: always
+    schema: classpath:test-schema-h2.sql
+    #data: classpath:test-data-h2.sql
+  batch:
+    jdbc:
+      initialize-schema: always
+      platform: h2
