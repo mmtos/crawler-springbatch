@@ -8,9 +8,8 @@ https://spring.io/guides/gs/batch-processing/
     - 참고 2 : https://jsonobject.tistory.com/225
   - [X] MybatisBatchWriter 사용하기
   - [X] Step간 데이터 공유
-  - [ ]
-  - [ ] REST API 데이터 저장 예시 작성 
-  - [ ] 실행가능 JAR로 실행해보기
+  - [X] REST API 데이터 저장 예시 작성 (Only 1 Page)
+  - [ ] 전체 페이지를 순회할때까지 Step을 반복하는 workflow 구현하기
 
 ##테스트 환경
 H2를 이용한 테스트 환경 : https://taes-k.github.io/2021/04/05/spring-test-isolation-datasource/
@@ -27,6 +26,8 @@ Step간 데이터 공유 :
   https://docs.spring.io/spring-batch/docs/current/reference/html/common-patterns.html#passingDataToFutureSteps
   https://stackoverflow.com/questions/2292667/how-can-we-share-data-between-the-different-steps-of-a-job-in-spring-batch
 job내부 step 흐름제어 : https://velog.io/@lxxjn0/Spring-Batch-Guide-04.-Spring-Batch-Job-Flow
+Chunk 처리 : Reader와 Processor에서는 1건씩 다뤄지고, Writer에선 Chunk 단위로 처리된다는 것만 기억하시면 됩니다.
+https://jojoldu.tistory.com/331
 
 ##문제 발생 및 해결
 * mysql로 DB변경시 테이블이 자동생성 되지않는 현상 발생 
@@ -55,6 +56,11 @@ job내부 step 흐름제어 : https://velog.io/@lxxjn0/Spring-Batch-Guide-04.-Sp
       ```
       lower_case_table_names=1
       ```
+
+* Map 을 DTO로 변환해야하는 상황 발생 
+  - https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=beabeak&logNo=220112193901
+  - Apache Commons BeanUtils.populate 사용
+  
 ## 설정정보들
 #### 공식 사이트
 - https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html
@@ -90,8 +96,15 @@ job내부 step 흐름제어 : https://velog.io/@lxxjn0/Spring-Batch-Guide-04.-Sp
   mybatis.configuration.vfsImpl=org.mybatis.spring.boot.autoconfigure.SpringBootVFS
   ```
 
-#### Oracle
-ojdbc10은 driverClassName이 ojdbc6와 다름
+#### Oracle VS MySQL
++ Oracle 단독 
+  - ojdbc10은 driverClassName이 ojdbc6와 다름
++ ID 생성
+  - Oracle : 따로 SEQUNCE를 만들어서 NEXTVAL로 사용
+  - MySQL : 테이블 생성시 AUTOINCREMENT로 선언
++ MERGE
+  - Oracle : MERGE문 사용
+  - MySQL : INSERT문 하단에 ON DUPLICATE KEY UPDATE사용 
 
 #### Batch, Quartz 연동
 https://hyejikim.tistory.com/67

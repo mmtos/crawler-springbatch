@@ -4,9 +4,25 @@
     <select id="selectAll" resultType="Hospital">
         SELECT RNUM,DUTY_NAME FROM HOSPITAL
     </select>
-    <update id="mergeHospital" parameterType="Hospital">
-        INSERT INTO HOSPITAL( RNUM, DUTY_NAME)
+    <update id="insertHospitalOracle" parameterType="Hospital">
+        MERGE INTO HOSPITAL A
+        USING DUAL
+        ON (A.RNUM = #{rnum})
+        WHEN MATCHED THEN
+        UPDATE SET DUTY_NAME = #{dutyName}
+        WHEN NOT MATCHED THEN
+        INSERT ( RNUM, DUTY_NAME)
         VALUES (#{rnum},#{dutyName})
-        ON DUPLICATE KEY UPDATE DUTY_NAME = #{dutyName}
+    </update>
+    <update id="insertHospital" parameterType="Hospital">
+        INSERT INTO HOSPITAL(
+            rnum,
+            duty_name
+        )VALUES(
+            #{rnum},
+            #{dutyName}
+        )
+        ON DUPLICATE KEY UPDATE
+            duty_name = #{dutyName}
     </update>
 </mapper>

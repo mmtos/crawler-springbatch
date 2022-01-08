@@ -8,7 +8,6 @@ public class HospitalItemProcessor implements ItemProcessor<Hospital,Hospital> {
 
     @Override
     public Hospital process(Hospital hospital) throws Exception {
-
         return hospital;
     }
 }
