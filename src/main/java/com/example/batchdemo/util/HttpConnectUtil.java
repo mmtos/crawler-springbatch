@@ -1,5 +1,6 @@
 package com.example.batchdemo.util;
 
+import com.example.batchdemo.exception.GetItemFailException;
 import com.example.batchdemo.exception.Not200Exception;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -13,6 +14,10 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HttpConnectUtil {
     static Logger log = LoggerFactory.getLogger(HttpConnectUtil.class);
@@ -30,15 +35,27 @@ public class HttpConnectUtil {
         return HttpClientBuilder.create().setDefaultRequestConfig(config).build();
     }
 
+    private static void setHardTimeout(HttpRequestBase methodObject, int hardTimeout){
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (methodObject != null) {
+                    methodObject.abort();
+                }
+            }
+        };
+        new Timer(true).schedule(task, hardTimeout * 1000);
+    }
 
 
-    public static String getResponseText(HttpRequestBase httpMethod) throws Not200Exception, IOException {
+    public static String getResponseText(HttpRequestBase httpMethod) throws Not200Exception, IOException, GetItemFailException {
         BufferedReader reader = null;
         CloseableHttpClient client = null;
         StringBuffer response = new StringBuffer();
 
         try{
-            client = getClientWithTimeout(20);
+            //setHardTimeout(httpMethod,10);
+            client = getClientWithTimeout(120);
             CloseableHttpResponse httpResponse = client.execute(httpMethod);
 
             int statusCode = httpResponse.getStatusLine().getStatusCode();
@@ -51,6 +68,9 @@ public class HttpConnectUtil {
             while ((inputLine = reader.readLine()) != null) {
                 response.append(inputLine);
             }
+        }catch(SocketException | SocketTimeoutException e){
+            log.error(e.toString());
+            throw new GetItemFailException(e.getMessage(),e);
         }finally {
             if(client != null ) client.close();
             if(reader != null ) reader.close();
