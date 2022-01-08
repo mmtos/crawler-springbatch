@@ -54,20 +54,13 @@ public class HospitalItemReader implements ItemReader<Hospital> {
 
     @Override
     public Hospital read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
-        //https://innopc.tistory.com/31
-        // 방안 1 : Step 당 한 페이지씩 처리 (chunkSize = api의 numOfRows)
-        // 방안 2 : DTO를 LIST타입으로 하여 Read 한번에 페이지 하나씩 전달 (chunkSize = 1(한번에 처리할 LIST의 개수) , list Size = api의 numOfRows)
         String pageNo =  jobExecution.getExecutionContext().get("pageNo").toString();
-
-
 
         if (checkRestCall == false){//한번도 호출 않았는지 체크
             URI uri = new URIBuilder(url)
                     .addParameter("ServiceKey",serviceKey)
                     .addParameter("numOfRows",numOfRows)
-//                    .addParameter("pageNo",String.valueOf(pageNo))
-                    .addParameter("pageNo","1")
-
+                    .addParameter("pageNo",String.valueOf(pageNo))
                     .build();
             Map<String,Object> bodyMap = null;
             try{
@@ -90,21 +83,19 @@ public class HospitalItemReader implements ItemReader<Hospital> {
                         bodyMap = (Map<String,Object>) bodyMap.get("items");
                     }
                     List<Map<String,String>> items = (List<Map<String,String>>) bodyMap.get("item");
-                    //TO-DO Apach Common Beanutils
                     for(Map<String,String> item : items){
                         Hospital hp =  new Hospital();
                         BeanUtils.populate(hp, item);
                         resultArray.add(hp);
                     }
-                    //resultArray.addAll(items);
                 }
             }catch(Not200Exception e){
                 log.error(e + "\n stackTrace : " + Arrays.stream(e.getStackTrace()).collect(Collectors.toList()));
                 throw new Exception(e);
             }
             log.info("{} : {} 페이지 처리됨",batchJobName,pageNo);
-            log.info(resultArray.toString());
-            Thread.sleep(1000);
+            log.debug(resultArray.toString());
+            Thread.sleep(3000);
             checkRestCall = true;//다음 read() 부터는 재호출 방지하기 위해 true로 변경
         }
 

@@ -20,6 +20,8 @@ import org.mybatis.spring.batch.builder.MyBatisBatchItemWriterBuilder;
 import org.springframework.batch.core.*;
 import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.core.configuration.annotation.*;
+import org.springframework.batch.core.job.flow.FlowExecutionStatus;
+import org.springframework.batch.core.job.flow.JobExecutionDecider;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.listener.ExecutionContextPromotionListener;
 import org.springframework.batch.core.listener.StepExecutionListenerSupport;
@@ -128,10 +130,31 @@ public class HospitalBatchConfig {
                 .incrementer(new RunIdIncrementer())
                 .start(hospitalBatchStep1())
                 .next(hospitalBatchStep2())
+                .next(decider())
+                .from(decider())
+                    .on("REMAIN_NEXT_PAGE")
+                    .to(hospitalBatchStep2())
+                .end()
                 .listener(completedListener)
                 //https://docs.spring.io/spring-batch/docs/current/reference/html/common-patterns.html#passingDataToFutureSteps
                 .listener(promotionListener())
                 .build();
+    }
+    @Bean
+    public JobExecutionDecider decider() {
+        return new JobExecutionDecider() {
+            @Override
+            public FlowExecutionStatus decide(JobExecution jobExecution, StepExecution stepExecution) {
+                int pageNo = Integer.parseInt(jobExecution.getExecutionContext().get("pageNo").toString());
+                int pageCount = Integer.parseInt(jobExecution.getExecutionContext().get("pageCount").toString());
+
+                if(pageNo > pageCount){
+                    return new FlowExecutionStatus("COMPLETED");
+                }else{
+                    return new FlowExecutionStatus("REMAIN_NEXT_PAGE");
+                }
+            }
+        };
     }
 
     @Bean
@@ -171,7 +194,7 @@ public class HospitalBatchConfig {
 
             @Override
             public void beforeStep(StepExecution stepExecution) {
-                log.error("스텝 시작");
+                log.info("스텝 시작");
             }
 
             @Override
