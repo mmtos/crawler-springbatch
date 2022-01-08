@@ -4,18 +4,27 @@ logging:
     #org.springframework.jdbc: debug
 ##Spring Datasource
 spring.datasource:
-  username: ENC(4PD683gP+MUwg+gkEJLPXQ==)
-  password: ENC(FhsScCfMiLX7MMpScGciKw==)
-  url: jdbc:oracle:thin:@10.201.5.153:49161:XE
-  driver-class-name: oracle.jdbc.OracleDriver
+#  username: ENC(4PD683gP+MUwg+gkEJLPXQ==)
+#  password: ENC(FhsScCfMiLX7MMpScGciKw==)
+#  url: jdbc:oracle:thin:@10.201.5.153:49161:XE
+#  platform: oracle
+#  driver-class-name: oracle.jdbc.OracleDriver
+  username: ENC(CzcbdFquIV3sofL90pC2nNJOP9ddasxP)
+  password: ENC(BnbcWAF9yghWgUNV9/K43w==)
+  url: jdbc:mysql://localhost:3306/batch_db?serverTimezone=UTC&characterEncoding=UTF-8
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  platform: mysql
+
   #initialization-mode: always
   initialization-mode: never
-  platform: oracle
+
 
 spring.batch:
     jdbc:
       #initialize-schema: always
       initialize-schema: never
+    job:
+      names: hospitalBatchJob
 mybatis:
   type-aliases-package: com.example.batchdemo.dto
   mapper-locations: /mapper/**/*.xml
