@@ -1,7 +1,7 @@
-##Tutorial URL 
+## Tutorial URL 
 https://spring.io/guides/gs/batch-processing/
 
-##TODO
+## TODO
   - [X] HSQL 대신 Mysql 사용하기
   - [X] Mybatis 도입 
   - [X] REST API - totalCount를 가져오는 Tasklet Step 작성
@@ -10,8 +10,8 @@ https://spring.io/guides/gs/batch-processing/
   - [X] REST API - 전체 페이지를 순회할때까지 Step을 반복하는 workflow 구현하기
   - [X] H2를 이용한 테스트 환경 구축 
 
-##TO-DO LOG 
-###HSQL 대신 Mysql 사용하기
+## TO-DO LOG 
+### HSQL 대신 Mysql 사용하기
 - Docker로 MySQL Container 띄우기
   ```
       docker run --name mysql-container ^
@@ -32,7 +32,7 @@ https://spring.io/guides/gs/batch-processing/
   - jasypt-spring-boot-starter 추가
   - Encrypt Bean 추가
 
-###Mybatis 도입 
+### Mybatis 도입 
 - 참고 1 : https://devlog-wjdrbs96.tistory.com/200
 - 참고 2 : https://jsonobject.tistory.com/225
 - pom 설정
@@ -94,7 +94,7 @@ https://spring.io/guides/gs/batch-processing/
 - decider를 이용한 JobFlow 캡슐화 
   - https://jojoldu.tistory.com/328
 
-###H2를 이용한 테스트 환경 구축
+### H2를 이용한 테스트 환경 구축
 - 테스트 DB로 H2 지정하기 
   - https://taes-k.github.io/2021/04/05/spring-test-isolation-datasource/
   - https://moonsiri.tistory.com/48?category=932632
@@ -106,7 +106,7 @@ https://spring.io/guides/gs/batch-processing/
 - spring batch 단위 테스트 작성
   - https://jojoldu.tistory.com/456?category=902551
 
-##이슈 발생 및 해결
+## 이슈 발생 및 해결
 * mysql로 DB변경시 테이블이 자동생성 되지않는 현상 발생 
   - 기본적으로는 embedded db(H2 HSQL...)를 사용하지 않으면 schema sql 문을 실행시키지 않음. 
     - spring.datasource.initialization-mode의 기본값이 DatabaseInitializationMode.EMBEDDED기 때문 
@@ -139,10 +139,10 @@ https://spring.io/guides/gs/batch-processing/
   - Apache Commons BeanUtils.populate 사용
   
 ## 설정정보들
-####Spring Boot 설정(공식 사이트)
+### Spring Boot 설정(공식 사이트)
 - https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html
 
-#### Oracle VS MySQL
+### Oracle VS MySQL
 + Oracle 단독 
   - ojdbc10은 driverClassName이 ojdbc6와 다름
 + ID 생성
